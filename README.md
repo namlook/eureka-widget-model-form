@@ -1,6 +1,25 @@
 # Eureka-widget-model-form
 
-This README outlines the details of collaborating on this Ember addon.
+An Eureka widget that display a form for the model. Usage:
+
+    {
+        BlogPost: {
+            views: {
+                model: {
+                    edit: {
+                        widgets: [
+                            {
+                                type: 'model-form',
+
+                                // the widget header. If "auto", display the model's title
+                                header: "Editing the blog post"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
 
 ## Installation
 
