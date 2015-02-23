@@ -12,7 +12,7 @@ An Eureka widget that display a form for the model. Usage:
                                 type: 'model-form',
 
                                 // the widget header. If "auto", display the model's title
-                                header: "Editing the blog post"
+                                label: "Editing the blog post"
                             }
                         ]
                     }

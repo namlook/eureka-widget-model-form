@@ -9,7 +9,7 @@ export default WidgetModel.extend({
     model: Ember.computed.alias('routeModel'),
     fields: Ember.computed.alias('model._fields'),
 
-    header: Ember.computed.alias('config.header'),
+    label: Ember.computed.alias('config.label'),
 
     actions: {
         save: function() {
