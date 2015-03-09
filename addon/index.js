@@ -15,14 +15,18 @@ export default WidgetModel.extend({
         save: function() {
             var model = this.get('model');
             var that = this;
+            var routePath = this.get('config.actions.save.transitionTo');
             model.save().then(function(m) {
-                that.sendAction('toControllerAction', {name: 'save', payload:m});
+                var payload = {model: m, routePath: routePath};
+                that.sendAction('toControllerAction', {name: 'transitionTo', payload: payload});
             });
         },
         cancel: function() {
             var model = this.get('model');
             model.rollback();
-            this.sendAction('toControllerAction', {name: 'cancel', payload: model});
+            var routePath = this.get('config.actions.cancel.transitionTo');
+            var payload = {model: model, routePath: routePath};
+            this.sendAction('toControllerAction', {name: 'transitionTo', payload: payload});
         }
     },
 

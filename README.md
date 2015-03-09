@@ -5,17 +5,48 @@ An Eureka widget that display a form for the model. Usage:
     {
         BlogPost: {
             views: {
+                collection: {
+                    index: {...},
+                },
+                new: {
+                    widgets: [
+                        {
+                            type: 'model-form',
+
+                            // the widget header. If "auto", display the model's title
+                            label: "Create the blog post",
+
+                            // the actions to perform when clicking on the save and cancel button
+                            actions: {
+                                save: {
+                                    transitionTo: 'eureka.blog-post.model.index'
+                                },
+                                cancel: {
+                                    transitionTo: 'eureka.blog-post.collection.index'
+                                },
+                            }
+                        }
+                    ]
+                },
                 model: {
                     edit: {
                         widgets: [
                             {
                                 type: 'model-form',
 
-                                // the widget header. If "auto", display the model's title
-                                label: "Editing the blog post"
+                                label: "Editing the blog post",
+
+                                actions: {
+                                    save: {
+                                        transitionTo: 'eureka.blog-post.model.index'
+                                    },
+                                    cancel: {
+                                        transitionTo: 'eureka.blog-post.model.index'
+                                    },
+                                }
                             }
                         ]
-                    }
+                    },
                 }
             }
         }
