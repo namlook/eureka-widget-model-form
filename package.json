@@ -1,6 +1,6 @@
 {
   "name": "eureka-widget-model-form",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An Eureka widget that display a form for the model",
   "directories": {
     "doc": "doc",
