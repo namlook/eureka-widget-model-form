@@ -7,7 +7,28 @@ export default WidgetModel.extend({
      */
     isEmbedded: false,
     model: Ember.computed.alias('routeModel'),
-    fields: Ember.computed.alias('model._fields'),
+
+    fieldNames: Ember.computed.alias('config.fields'),
+
+    /** display only the fields specified in `config.fields`
+     * If `config.fields` doesn't exists, display all model's fields
+     */
+    fields: function() {
+        var fieldNames = this.get('fieldNames');
+        var fields, field;
+        if (fieldNames) {
+            var model = this.get('model');
+            fields = Ember.A();
+            fieldNames.forEach(function(fieldName) {
+                field = model.get(fieldName+'Field');
+                fields.pushObject(field);
+            });
+        } else {
+            fields = this.get('model._fields');
+        }
+
+        return fields;
+    }.property('fieldNames.[]', 'model._fields'),
 
     label: Ember.computed.alias('config.label'),
 
@@ -18,6 +39,7 @@ export default WidgetModel.extend({
             var routePath = this.get('config.actions.save.transitionTo');
             model.save().then(function(m) {
                 var payload = {model: m, routePath: routePath};
+                that.sendAction('toControllerAction', {name: 'refreshModel'});
                 that.sendAction('toControllerAction', {name: 'transitionTo', payload: payload});
             });
         },
