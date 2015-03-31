@@ -5,7 +5,7 @@ export default WidgetModel.extend({
 
     /** if false, display the save button
      */
-    isEmbedded: false,
+    isEmbedded: Ember.computed.bool('config.hideControlButtons'),
     model: Ember.computed.alias('routeModel'),
 
     fieldNames: Ember.computed.alias('config.fields'),
@@ -36,7 +36,7 @@ export default WidgetModel.extend({
         save: function() {
             var model = this.get('model');
             var that = this;
-            var routePath = this.get('config.actions.save.transitionTo');
+            var routePath = this.getWithDefault('config.actions.save.transitionTo', model.get('meta.modelIndexViewPath'));
             model.save().then(function(m) {
                 var payload = {model: m, routePath: routePath};
                 that.sendAction('toControllerAction', {name: 'refreshModel'});
@@ -47,6 +47,13 @@ export default WidgetModel.extend({
             var model = this.get('model');
             model.rollback();
             var routePath = this.get('config.actions.cancel.transitionTo');
+            if (!routePath) {
+                if (model.get('_id')) {
+                    routePath = model.get('meta.modelIndexViewPath');
+                } else {
+                    routePath = model.get('meta.collectionIndexViewPath');
+                }
+            }
             var payload = {model: model, routePath: routePath};
             this.sendAction('toControllerAction', {name: 'transitionTo', payload: payload});
         }
