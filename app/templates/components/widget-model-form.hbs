@@ -6,13 +6,13 @@
 
 
     <div class="panel-body">
-        <form class="form-horizontal">
+        <form class="form">
             {{#each field in fields}}
                 <div class="form-group">
-                    <label {{bind-attr for="field.meta.name"}} class="col-sm-2 control-label">
+                    <label {{bind-attr for="field.meta.name"}} class="control-label">
                         {{field.meta.label}}
                     </label>
-                    <div class="col-sm-10">
+                    <div class="">
                         {{dynamic-component
                             type=field.meta.formWidgetComponentName
                             field=field
@@ -23,8 +23,10 @@
         </form>
 
         {{#unless isEmbedded}}
-            <button {{action 'cancel'}}>cancel</button>
-            <button {{action 'save'}}>save</button>
+            <div class="btn-group btn-group-md" role="group">
+                <button class="btn btn-default" {{action 'cancel'}}>cancel</button>
+                <button class="btn btn-primary" {{action 'save'}}>save</button>
+            </div>
         {{/unless}}
 
     </div>
