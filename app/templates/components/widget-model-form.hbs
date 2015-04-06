@@ -13,8 +13,7 @@
                         {{field.meta.label}}
                     </label>
                     <div class="">
-                        {{dynamic-component
-                            type=field.meta.formWidgetComponentName
+                        {{component field.meta.formWidgetComponentName
                             field=field
                             currentController=currentController}}
                     </div>
