@@ -7,9 +7,9 @@
 
     <div class="panel-body">
         <form class="form">
-            {{#each field in fields}}
+            {{#each fields as |field|}}
                 <div class="form-group">
-                    <label {{bind-attr for="field.meta.name"}} class="control-label">
+                    <label for={{field.meta.name}} class="control-label">
                         {{field.meta.label}}
                     </label>
                     <div class="">
