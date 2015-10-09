@@ -13,7 +13,7 @@ export default WidgetModel.extend({
     /** display only the fields specified in `config.fields`
      * If `config.fields` doesn't exists, display all model's fields
      */
-    fields: function() {
+    fields: Ember.computed('fieldNames.[]', 'model._fields', function() {
         var fieldNames = this.get('fieldNames');
         var fields, field;
         if (fieldNames) {
@@ -28,7 +28,7 @@ export default WidgetModel.extend({
         }
 
         return fields;
-    }.property('fieldNames.[]', 'model._fields'),
+    }),
 
     label: Ember.computed.alias('config.label'),
 
@@ -59,12 +59,12 @@ export default WidgetModel.extend({
         }
     },
 
-    _focusOnFirstElement: function() {
-        this.$('input:eq(0)').focus();
-    }.on('didInsertElement'),
+    // _focusOnFirstElement: Ember.on('didInsertElement', function() {
+    //     this.$('input:eq(0)').focus();
+    // }),
 
-    _focusOnNextElement: function() {
-        // XXX check li
-        this.$().closest('li').next().find('input').focus();
-    }.on('willDestroyElement')
+    // _focusOnNextElement: Ember.on('willDestroyElement', function() {
+    //     // XXX check li
+    //     this.$().closest('li').next().find('input').focus();
+    // })
 });
